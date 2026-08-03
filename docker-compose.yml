@@ -1,0 +1,60 @@
+services:
+  dev-payment-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: dev-payment-api
+    working_dir: /opt/www
+    volumes:
+      - ./:/opt/www
+    ports:
+      - "9501:9501"
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      APP_ENV: dev
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: dev_payment
+      DB_USERNAME: dev-payment-user
+      DB_PASSWORD: password
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+    networks:
+      - dev-payment-network
+
+  mysql:
+    image: mysql:8.4
+    container_name: dev-payment-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dev_payment
+      MYSQL_USER: dev-payment-user
+      MYSQL_PASSWORD: dev-payment-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - dev-payment-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: dev-payment-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - dev-payment-network
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  dev-payment-network:
+    driver: bridge
