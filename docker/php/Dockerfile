@@ -2,26 +2,44 @@ FROM php:8.4-cli-bookworm
 
 LABEL maintainer="Luigi Raynel"
 
+# -----------------------------------------------------------------------------
+# Argumentos
+# -----------------------------------------------------------------------------
+ARG APP_USER=app
+ARG APP_UID=1000
+
+# -----------------------------------------------------------------------------
+# Diretório da aplicação
+# -----------------------------------------------------------------------------
 WORKDIR /opt/www
 
 # -----------------------------------------------------------------------------
 # Dependências do sistema
 # -----------------------------------------------------------------------------
-RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  \
+  # Ferramentas básicas
   git \
   curl \
   unzip \
   zip \
   procps \
+  ca-certificates \
+  \
+  # Ferramentas para compilação de extensões PECL
+  autoconf \
+  make \
+  g++ \
+  pkg-config \
+  \
+  # Bibliotecas de desenvolvimento
   libzip-dev \
   libicu-dev \
   libssl-dev \
   libcurl4-openssl-dev \
   libxml2-dev \
   libonig-dev \
-  libpq-dev \
   libsqlite3-dev \
-  pkg-config \
   && rm -rf /var/lib/apt/lists/*
 
 # -----------------------------------------------------------------------------
@@ -38,16 +56,11 @@ RUN docker-php-ext-install -j"$(nproc)" \
   zip
 
 # -----------------------------------------------------------------------------
-# Redis
+# Extensões PECL
 # -----------------------------------------------------------------------------
-RUN pecl install redis \
-  && docker-php-ext-enable redis
-
-# -----------------------------------------------------------------------------
-# OpenSwoole
-# -----------------------------------------------------------------------------
-RUN pecl install openswoole \
-  && docker-php-ext-enable openswoole
+RUN pecl install redis swoole \
+  && docker-php-ext-enable redis swoole \
+  && pecl clear-cache
 
 # -----------------------------------------------------------------------------
 # Composer
@@ -55,17 +68,24 @@ RUN pecl install openswoole \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV COMPOSER_HOME=/tmp/composer
+ENV COMPOSER_HOME=/home/${APP_USER}/.composer
 
 # -----------------------------------------------------------------------------
 # Usuário da aplicação
 # -----------------------------------------------------------------------------
-RUN groupadd -g 1000 app \
-  && useradd -u 1000 -g app -m app \
-  && chown -R app:app /opt/www
+RUN groupadd --gid ${APP_UID} ${APP_USER} \
+  && useradd --uid ${APP_UID} --gid ${APP_UID} --create-home ${APP_USER} \
+  && mkdir -p /opt/www \
+  && chown -R ${APP_USER}:${APP_USER} /opt/www
 
-USER app
+USER ${APP_USER}
 
+# -----------------------------------------------------------------------------
+# Porta padrão do HyperF
+# -----------------------------------------------------------------------------
 EXPOSE 9501
 
-CMD ["php", "-a"]
+# -----------------------------------------------------------------------------
+# Comando padrão (temporário durante a Sprint 1)
+# -----------------------------------------------------------------------------
+CMD ["tail", "-f", "/dev/null"]
