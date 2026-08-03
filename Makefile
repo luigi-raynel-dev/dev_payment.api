@@ -1,4 +1,3 @@
-```makefile
 # =============================================================================
 # Dev Payment API - Makefile
 # Maintainer: Luigi Raynel
@@ -60,4 +59,4 @@ shell:
 
 clean:
 	docker compose down -v --remove-orphans
-```
+
