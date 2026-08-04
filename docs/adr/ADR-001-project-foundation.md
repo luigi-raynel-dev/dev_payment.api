@@ -1,9 +1,7 @@
 # ADR-001 — Project Foundation
 
-## Status
-
-Accepted
-
+- **Status:** Accepted
+- **Sprint:** Sprint 01
 ---
 
 ## Context

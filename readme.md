@@ -1,10 +1,10 @@
 # Dev Payment API
 
-Microsserviço de processamento de pagamentos desenvolvido com **HyperF**, seguindo princípios de arquitetura limpa, DDD e microsserviços.
+Microsserviço de processamento de pagamentos desenvolvido com **HyperF**, seguindo princípios de arquitetura limpa, DDD e boas práticas de engenharia para sistemas financeiros.
 
-O objetivo deste projeto é demonstrar boas práticas de engenharia de software em um cenário inspirado em sistemas financeiros de alta disponibilidade.
+O objetivo deste projeto é servir como um portfolio técnico de um microsserviço de produção, com foco em qualidade de código, organização de camadas, infraestrutura reproduzível e evolução gradual.
 
-> ⚠️ Projeto em desenvolvimento.
+> Status atual: preparando a Sprint 2 para bootstrap do HyperF e definição da arquitetura base.
 
 ---
 
@@ -17,14 +17,80 @@ O objetivo deste projeto é demonstrar boas práticas de engenharia de software 
 - Redis 7
 - Docker
 - Docker Compose
-- AWS SQS *(Sprint futura)*
-- PHPUnit / Pest *(Sprint futura)*
+- Make
+- PHPUnit / Pest *(sprint futura)*
+- AWS SQS *(sprint futura)*
+
+---
+
+# Objetivo do projeto
+
+Construir uma base sólida para um microsserviço de pagamentos, com:
+
+- infraestrutura profissional em Docker;
+- aplicação executando com HyperF;
+- estrutura de arquitetura preparada para Clean Architecture e DDD;
+- endpoints iniciais para observabilidade e saúde da aplicação;
+- evolução controlada para regras de negócio e integrações.
+
+---
+
+# Sprint atual
+
+## Sprint 2 — Bootstrap HyperF
+
+A Sprint 2 tem como foco inicializar a aplicação HyperF e garantir que o microsserviço execute corretamente em Docker, pronto para receber regras de negócio.
+
+### Definition of Done
+
+Ao final da sprint, o projeto deve permitir:
+
+```bash
+make up
+```
+
+E expor:
+
+```http
+GET /health
+```
+
+Com resposta esperada:
+
+```json
+{
+  "status": "ok",
+  "service": "dev-payment-api",
+  "version": "0.2.0"
+}
+```
+
+Isso confirma que:
+
+- HyperF está funcionando;
+- Swoole está funcionando;
+- roteamento está funcionando;
+- Docker está funcionando;
+- a aplicação está pronta para evoluir.
 
 ---
 
 # Arquitetura
 
-Em construção.
+A arquitetura base do microsserviço seguirá uma estrutura inspirada em Clean Architecture e DDD:
+
+```text
+app/
+├── Application/
+├── Domain/
+├── Infrastructure/
+├── Interfaces/
+│   └── Http/
+├── Shared/
+└── Config/
+```
+
+Essa organização foi definida antes do início do desenvolvimento de regras de negócio para evitar refatorações futuras.
 
 ---
 
@@ -53,13 +119,21 @@ Também é necessário possuir:
 dev-payment-api
 ├── docker/
 ├── docs/
-├── src/
-├── config/
-├── migrations/
-├── tests/
+│   ├── adr/
+│   └── planning/
+├── app/
+│   ├── Application/
+│   ├── Domain/
+│   ├── Infrastructure/
+│   ├── Interfaces/
+│   ├── Shared/
+│   └── Config/
 ├── docker-compose.yml
 ├── Makefile
-└── README.md
+├── AGENTS.md
+├── changelog.md
+├── readme.md
+└── .env.example
 ```
 
 ---
@@ -70,11 +144,8 @@ Clone o repositório:
 
 ```bash
 git clone <url-do-repositorio>
-
 cd dev-payment-api
 ```
-
----
 
 ## Construindo a imagem
 
@@ -82,23 +153,23 @@ cd dev-payment-api
 make build
 ```
 
----
-
 ## Subindo o ambiente
 
 ```bash
 make up
 ```
 
----
+## Verificando a aplicação
+
+```bash
+curl http://localhost:9501/health
+```
 
 ## Acessando o container
 
 ```bash
 make shell
 ```
-
----
 
 ## Derrubando os containers
 
@@ -123,13 +194,26 @@ make down
 
 ---
 
-## Documentação
+# Documentação
 
-Toda a documentação do projeto encontra-se em `docs/`.
+Toda a documentação do projeto está em `docs/`.
 
 - ADRs → `docs/adr`
-- Planning → `docs/planning`
-- Arquitetura → `docs/architecture`
+- Planejamento → `docs/planning`
+- Arquitetura base → `docs/adr/ADR-002-base-architecture.md`
+
+---
+
+# Roadmap
+
+- Sprint 1: infraestrutura e ambiente base concluída
+- Sprint 2: HyperF + bootstrap da aplicação + health check
+- Sprint 3: domínio de pagamentos e casos de uso
+- Sprint 4: persistência e repositories
+- Sprint 5: mensageria e workers
+- Sprint 6: MongoDB e auditoria
+- Sprint 7: observabilidade e monitoramento
+- Sprint 8: deploy e infraestrutura AWS
 
 ---
 

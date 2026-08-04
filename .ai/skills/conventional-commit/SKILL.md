@@ -29,6 +29,8 @@ Support:
 
 # Rules
 
+Generate commit messages always in English.
+
 Use imperative mood.
 
 Keep subject concise.
