@@ -29,3 +29,21 @@
 - Configuração do Docker Desktop utilizando WSL.
 - Compilação da extensão Swoole.
 - Dependência libbrotlienc durante o build.
+
+## Aprendizados
+
+Durante a Sprint foi possível compreender melhor:
+
+- funcionamento do WSL2;
+- integração entre Docker Desktop e Linux;
+- processo de compilação de extensões PECL;
+- criação de imagens Docker;
+- importância de um ambiente reproduzível.
+
+## Critérios de aceite
+
+- Docker Build executa com sucesso.
+- Docker Compose sobe todos os containers.
+- MySQL disponível.
+- Redis disponível.
+- Ambiente pronto para receber o HyperF.
