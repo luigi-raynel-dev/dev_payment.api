@@ -11,6 +11,14 @@
 - ADR-001
 - README inicial
 
+## Critérios de aceite
+
+- [x] Docker Build executa com sucesso.
+- [x] Docker Compose sobe todos os containers.
+- [x] MySQL disponível.
+- [x] Redis disponível.
+- [x] Ambiente pronto para receber o HyperF.
+
 ## Não faz parte desta Sprint
 
 - HyperF
@@ -40,10 +48,6 @@ Durante a Sprint foi possível compreender melhor:
 - criação de imagens Docker;
 - importância de um ambiente reproduzível.
 
-## Critérios de aceite
+## Resultado
 
-- Docker Build executa com sucesso.
-- Docker Compose sobe todos os containers.
-- MySQL disponível.
-- Redis disponível.
-- Ambiente pronto para receber o HyperF.
+Ao término da Sprint o projeto possui toda a infraestrutura necessária para iniciar o desenvolvimento da aplicação sem depender de configurações locais da máquina do desenvolvedor.
