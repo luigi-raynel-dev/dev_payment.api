@@ -56,11 +56,19 @@ RUN docker-php-ext-install -j"$(nproc)" \
   zip
 
 # -----------------------------------------------------------------------------
-# Extensões PECL
 # -----------------------------------------------------------------------------
-RUN pecl install redis swoole \
-  && docker-php-ext-enable redis swoole \
-  && pecl clear-cache
+# Redis
+# -----------------------------------------------------------------------------
+RUN pecl install redis \
+  && docker-php-ext-enable redis
+
+# -----------------------------------------------------------------------------
+# Swoole
+# -----------------------------------------------------------------------------
+RUN pecl install --configureoptions 'enable-brotli="no" enable-sockets="yes" enable-openssl="yes"' swoole \
+  && docker-php-ext-enable swoole
+
+RUN pecl clear-cache
 
 # -----------------------------------------------------------------------------
 # Composer
