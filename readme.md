@@ -46,7 +46,7 @@ A Sprint 2 tem como foco inicializar a aplicação HyperF e garantir que o micro
 Ao final da sprint, o projeto deve permitir:
 
 ```bash
-make up
+make setup
 ```
 
 E expor:
@@ -147,17 +147,33 @@ git clone <url-do-repositorio>
 cd dev-payment-api
 ```
 
-## Construindo a imagem
+## Opção rápida: setup completo
+
+Se você quiser iniciar o ambiente de forma automatizada, o comando abaixo já sobe os containers, instala as dependências do Composer e inicia a aplicação HyperF:
+
+```bash
+make setup
+```
+
+## Alternativa passo a passo
+
+Se preferir rodar os comandos um por um:
 
 ```bash
 make build
-```
-
-## Subindo o ambiente
-
-```bash
 make up
+make doctor
+make app-start
 ```
+
+### O que o comando `make doctor` faz?
+
+O `make doctor` é útil para validar rapidamente o estado do ambiente. Ele verifica:
+
+- status dos containers Docker;
+- versão do PHP;
+- versão do Composer;
+- versão da aplicação HyperF.
 
 ## Verificando a aplicação
 
@@ -183,14 +199,25 @@ make down
 
 | Comando | Descrição |
 |----------|-----------|
+| `make` | Exibe ajuda com os comandos disponíveis |
+| `make setup` | Configura o ambiente completo de forma rápida |
 | `make build` | Constrói a imagem Docker |
 | `make up` | Sobe os containers |
 | `make down` | Derruba os containers |
 | `make restart` | Reinicia o ambiente |
+| `make doctor` | Verifica o estado do Docker, PHP, Composer e HyperF |
 | `make shell` | Entra no container da aplicação |
 | `make logs` | Exibe os logs |
-| `make test` | Executa os testes |
-| `make composer` | Executa comandos do Composer |
+| `make composer-install` | Instala as dependências do Composer |
+| `make composer-update` | Atualiza as dependências do Composer |
+| `make composer-dump` | Gera o autoload do Composer |
+| `make composer-require PACKAGE=nome/pacote` | Adiciona uma dependência do Composer |
+| `make composer-remove PACKAGE=nome/pacote` | Remove uma dependência do Composer |
+| `make app-start` | Inicia a aplicação HyperF |
+| `make app-start-watch` | Inicia a aplicação HyperF em modo watch |
+| `make app-stop` | Para a aplicação HyperF |
+| `make app-reload` | Recarrega a aplicação HyperF |
+| `make app-status` | Exibe o status da aplicação HyperF |
 
 ---
 
@@ -201,19 +228,20 @@ Toda a documentação do projeto está em `docs/`.
 - ADRs → `docs/adr`
 - Planejamento → `docs/planning`
 - Arquitetura base → `docs/adr/ADR-002-base-architecture.md`
+- HyperF → `docs/hyperf`
 
 ---
 
 # Roadmap
 
-- Sprint 1: infraestrutura e ambiente base concluída
-- Sprint 2: HyperF + bootstrap da aplicação + health check
-- Sprint 3: domínio de pagamentos e casos de uso
-- Sprint 4: persistência e repositories
-- Sprint 5: mensageria e workers
-- Sprint 6: MongoDB e auditoria
-- Sprint 7: observabilidade e monitoramento
-- Sprint 8: deploy e infraestrutura AWS
+- [x] Sprint 1: infraestrutura e ambiente base concluída
+- [ ] Sprint 2: HyperF + bootstrap da aplicação + health check
+- [ ] Sprint 3: domínio de pagamentos e casos de uso
+- [ ] Sprint 4: persistência e repositories
+- [ ] Sprint 5: mensageria e workers
+- [ ] Sprint 6: MongoDB e auditoria
+- [ ] Sprint 7: observabilidade e monitoramento
+- [ ] Sprint 8: deploy e infraestrutura AWS
 
 ---
 
