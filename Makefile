@@ -25,7 +25,16 @@ help:
 	@echo "  make logs            - Exibe os logs da aplicação"
 	@echo "  make shell           - Acessa o container da aplicação"
 	@echo "  make clean           - Remove containers, volumes e órfãos"
+	@echo "  make app-start       - Inicia a aplicação HyperF"
+	@echo "  make app-start-watch - Inicia a aplicação HyperF com watch"
+	@echo "  make app-stop        - Para a aplicação HyperF"
+	@echo "  make app-reload      - Recarrega a aplicação HyperF"
+	@echo "  make app-status      - Exibe o status da aplicação HyperF"
 	@echo ""
+
+# -----------------------------------------------------------------------------
+# Docker Compose
+# -----------------------------------------------------------------------------
 
 up:
 	docker compose up -d
@@ -60,3 +69,21 @@ shell:
 clean:
 	docker compose down -v --remove-orphans
 
+# -----------------------------------------------------------------------------
+# HyperF
+# -----------------------------------------------------------------------------
+
+app-start:
+	docker compose exec $(APP) php bin/hyperf.php start
+
+app-start-watch:
+	docker compose exec $(APP) php bin/hyperf.php start --watch
+
+app-stop:
+	docker compose exec $(APP) php bin/hyperf.php stop
+
+app-reload:
+	docker compose exec $(APP) php bin/hyperf.php reload
+
+app-status:
+	docker compose exec $(APP) php bin/hyperf.php server:status
