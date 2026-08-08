@@ -9,5 +9,10 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
+use App\Domain\Health\HealthServiceInterface;
+use App\Infrastructure\Health\HealthService;
+
 return [
+  HealthServiceInterface::class => HealthService::class,
 ];

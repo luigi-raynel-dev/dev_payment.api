@@ -8,6 +8,17 @@ services:
 
     working_dir: /opt/www
 
+    command: php bin/hyperf.php start
+
+    develop:
+      watch:
+        - action: restart
+          path: ./app
+        - action: restart
+          path: ./config
+        - action: restart
+          path: ./bin
+
     tty: true
     stdin_open: true
 

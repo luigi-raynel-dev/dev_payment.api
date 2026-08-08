@@ -9,13 +9,19 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 use Hyperf\Contract\StdoutLoggerInterface;
 use Psr\Log\LogLevel;
 
 use function Hyperf\Support\env;
 
 return [
-    'app_name' => env('APP_NAME', 'skeleton'),
+    'app' => [
+        'name' => env('APP_NAME', 'dev-payment-api'),
+        'version' => env('APP_VERSION', '1.0.0'),
+        'env' => env('APP_ENV', 'dev'),
+    ],
+    'app_name' => env('APP_NAME', 'dev-payment-api'),
     'app_env' => env('APP_ENV', 'dev'),
     'scan_cacheable' => env('SCAN_CACHEABLE', false),
     StdoutLoggerInterface::class => [
