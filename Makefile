@@ -114,17 +114,8 @@ composer-remove:
 app-start:
 	docker compose exec $(APP) php bin/hyperf.php start
 
-app-start-watch:
-	docker compose watch
-
-app-stop:
-	docker compose exec $(APP) php bin/hyperf.php stop
-
-app-reload:
-	docker compose exec $(APP) php bin/hyperf.php reload
-
-app-status:
-	docker compose exec $(APP) php bin/hyperf.php server:status
+app-watch:
+	docker compose exec $(APP) php bin/hyperf.php server:watch
 
 # -----------------------------------------------------------------------------
 # Setup

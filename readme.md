@@ -163,6 +163,16 @@ Se preferir rodar os comandos um por um:
 make build
 make up
 make doctor
+```
+
+### Se quiser rodar com hot reload (reiniciando automaticamente ao salvar arquivos), utilize:
+
+```bash
+make app-watch
+```
+### Ou se quiser apenas iniciar a aplicação HyperF sem hot reload:
+
+```bash
 make app-start
 ```
 
@@ -214,10 +224,7 @@ make down
 | `make composer-require PACKAGE=nome/pacote` | Adiciona uma dependência do Composer |
 | `make composer-remove PACKAGE=nome/pacote` | Remove uma dependência do Composer |
 | `make app-start` | Inicia a aplicação HyperF |
-| `make app-start-watch` | Inicia a aplicação HyperF em modo watch |
-| `make app-stop` | Para a aplicação HyperF |
-| `make app-reload` | Recarrega a aplicação HyperF |
-| `make app-status` | Exibe o status da aplicação HyperF |
+| `make app-watch` | Inicia a aplicação HyperF em modo watch |
 
 ---
 
