@@ -225,6 +225,7 @@ make down
 | `make composer-remove PACKAGE=nome/pacote` | Remove uma dependência do Composer |
 | `make app-start` | Inicia a aplicação HyperF |
 | `make app-watch` | Inicia a aplicação HyperF em modo watch |
+| `make app-test` | Executa os testes da aplicação HyperF |
 
 ---
 

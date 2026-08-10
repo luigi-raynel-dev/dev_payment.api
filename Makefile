@@ -117,6 +117,9 @@ app-start:
 app-watch:
 	docker compose exec $(APP) php bin/hyperf.php server:watch
 
+app-test:
+	docker compose exec $(APP) composer test
+
 # -----------------------------------------------------------------------------
 # Setup
 # -----------------------------------------------------------------------------

@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use Hyperf\Testing\TestCase;
+use PHPUnit\Framework\Attributes\CoversNothing;
 
-/**
- * @internal
- * @coversNothing
- */
-class HealthControllerTest extends TestCase
+#[CoversNothing]
+final class HealthControllerTest extends TestCase
 {
   protected function tearDown(): void
   {
