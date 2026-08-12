@@ -16,6 +16,7 @@ This project follows the principles of Keep a Changelog.
 - README updated to reflect the Sprint 2 goals and application bootstrap scope.
 - Roadmap updated with the next delivery stage.
 - Project documentation aligned with the early architecture decision.
+- Implemented `/health` endpoint with liveness response and versioned health contract.
 
 ### Changed
 

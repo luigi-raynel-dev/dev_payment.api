@@ -10,14 +10,14 @@
 
 ## Sprint 2
 
-⬜ HyperF
-⬜ Configuração do Composer
-⬜ Ajuste do Docker para HyperF
-⬜ Configuração do `.env`
-⬜ Endpoint `/health`
-⬜ Estrutura inicial da aplicação
-⬜ Clean Architecture e DDD como base do microsserviço
-⬜ README, changelog e documentação de sprint atualizados
+✅ HyperF
+✅ Configuração do Composer
+✅ Ajuste do Docker para HyperF
+✅ Configuração do `.env`
+✅ Endpoint `/health`
+✅ Estrutura inicial da aplicação
+✅ Clean Architecture e DDD como base do microsserviço
+✅ README, changelog e documentação de sprint atualizados
 
 ## Sprint 3
 

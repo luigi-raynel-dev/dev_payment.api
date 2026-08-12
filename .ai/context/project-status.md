@@ -10,8 +10,7 @@ Steps
 - [x] Redis
 - [x] MySQL
 - [x] HyperF Bootstrap
-- [] Health Check
-- [] Payment Domain
+- [x] Health Check
 
 Future
 

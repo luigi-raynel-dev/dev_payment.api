@@ -4,7 +4,7 @@ Microsserviço de processamento de pagamentos desenvolvido com **HyperF**, segui
 
 O objetivo deste projeto é servir como um portfolio técnico de um microsserviço de produção, com foco em qualidade de código, organização de camadas, infraestrutura reproduzível e evolução gradual.
 
-> Status atual: preparando a Sprint 2 para bootstrap do HyperF e definição da arquitetura base.
+> Status atual: Sprint 2 em andamento; bootstrap HyperF implementado e validação do health check em progresso.
 
 ---
 
@@ -59,9 +59,11 @@ Com resposta esperada:
 
 ```json
 {
-  "status": "ok",
+  "status": "UP",
   "service": "dev-payment-api",
-  "version": "0.2.0"
+  "version": "0.2.0",
+  "environment": "dev",
+  "timestamp": "2026-08-12T00:00:00Z"
 }
 ```
 

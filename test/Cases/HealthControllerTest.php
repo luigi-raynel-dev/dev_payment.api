@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace HyperfTest\Cases;
 
 use Hyperf\Testing\TestCase;
-use PHPUnit\Framework\Attributes\CoversNothing;
 
-#[CoversNothing]
 final class HealthControllerTest extends TestCase
 {
   protected function tearDown(): void
@@ -28,7 +26,11 @@ final class HealthControllerTest extends TestCase
         'version',
         'environment',
         'timestamp',
-        'checks' => ['database', 'redis'],
+      ])
+      ->assertJsonFragment([
+        'status' => 'UP',
+        'service' => 'dev-payment-api',
+        'version' => '0.2.0',
       ]);
   }
 }

@@ -15,7 +15,7 @@ O foco desta Sprint é construir uma base sólida para as próximas entregas.
 Ao final da Sprint, queremos ser capazes de executar:
 
 ```bash
-make up
+make setup
 ```
 
 E acessar:
@@ -28,9 +28,11 @@ Retornando algo como:
 
 ```json
 {
-  "status": "ok",
+  "status": "UP",
   "service": "dev-payment-api",
-  "version": "0.2.0"
+  "version": "0.2.0",
+  "environment": "dev",
+  "timestamp": "2026-08-12T00:00:00Z"
 }
 ```
 
