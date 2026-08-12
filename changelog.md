@@ -6,7 +6,7 @@ This project follows the principles of Keep a Changelog.
 
 ---
 
-## [0.2.0] - 2026-08-04
+## [0.2.0] - 2026-08-12
 
 ### Added
 

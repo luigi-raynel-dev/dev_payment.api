@@ -103,8 +103,6 @@ app/
 ├── Infrastructure/
 ├── Interfaces/
 │   └── Http/
-├── Shared/
-└── Config/
 ```
 
 Mesmo que algumas pastas fiquem vazias por enquanto, essa organização ajuda a evitar uma refatoração pesada nas próximas Sprints.
