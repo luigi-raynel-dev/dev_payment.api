@@ -31,7 +31,7 @@ final class PaymentTest extends TestCase
   public function testItRejectsZeroOrNegativeAmount(): void
   {
     $this->expectException(InvalidArgumentException::class);
-    $this->expectExceptionMessage('The payment amount must be greater than zero.');
+    $this->expectExceptionMessage('The payment amount must be greater than zero and less than or equal to 100000000.');
 
     new Payment(
       id: 'pay_123',

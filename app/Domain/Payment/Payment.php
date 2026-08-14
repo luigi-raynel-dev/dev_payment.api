@@ -82,8 +82,8 @@ final class Payment
 
   private function validateAmount(): void
   {
-    if ($this->amount <= self::MIN_AMOUNT || $this->amount > self::MAX_AMOUNT) {
-      throw new InvalidArgumentException('The payment amount must be greater than zero.');
+    if ($this->amount < self::MIN_AMOUNT || $this->amount > self::MAX_AMOUNT) {
+      throw new InvalidArgumentException('The payment amount must be greater than zero and less than or equal to 100000000.');
     }
   }
 
