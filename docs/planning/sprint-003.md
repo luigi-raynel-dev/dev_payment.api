@@ -37,16 +37,16 @@ Ao final da Sprint, o projeto deve ser capaz de:
 
 - [x] criar `PaymentRepositoryInterface`;
 - [x] definir DTOs de entrada e saída;
-- [ ] estabelecer interfaces para ports necessários ao caso de uso;
+- [x] estabelecer interfaces para ports necessários ao caso de uso;
 - [x] evitar acoplamento com banco e controllers.
 
 ### 3. Caso de uso de criação
 
-- [ ] implementar `CreatePayment`;
-- [ ] gerar `id` único;
-- [ ] validar `amount`, `currency`, `status`, `description`;
-- [ ] criar a entidade com timestamps corretos;
-- [ ] persistir apenas através do contrato do repositório.
+- [x] implementar `CreatePayment`;
+- [x] gerar `id` único;
+- [x] validar `amount`, `currency`, `status`, `description`;
+- [x] criar a entidade com timestamps corretos;
+- [x] persistir apenas através do contrato do repositório.
 
 ### 4. Infraestrutura
 
@@ -65,7 +65,7 @@ Ao final da Sprint, o projeto deve ser capaz de:
 ### 6. Testes
 
 - [x] testes unitários do domínio;
-- [ ] testes do caso de uso;
+- [x] testes do caso de uso;
 - [ ] testes de integração do repository;
 - [ ] testes do endpoint HTTP.
 
