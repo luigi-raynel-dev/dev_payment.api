@@ -26,55 +26,54 @@ Ao final da Sprint, o projeto deve ser capaz de:
 
 ### 1. Domínio de Payment
 
-- Definir a entidade `Payment`;
-- definir campos e tipos;
-- validar valores mínimos e máximos;
-- mapear status possíveis;
-- definir transições permitidas;
-- identificar Value Objects necessários;
-- separar regras do domínio das regras da aplicação.
+- [x] Definir a entidade `Payment`;
+- [x] definir campos e tipos;
+- [x] validar valores mínimos e máximos;
+- [x] mapear status possíveis;
+- [x] definir transições permitidas;
+- [x] separar regras do domínio das regras da aplicação.
 
 ### 2. Contratos e portas
 
-- criar `PaymentRepositoryInterface`;
-- definir DTOs de entrada e saída;
-- estabelecer interfaces para ports necessários ao caso de uso;
-- evitar acoplamento com banco e controllers.
+- [ ] criar `PaymentRepositoryInterface`;
+- [ ] definir DTOs de entrada e saída;
+- [ ] estabelecer interfaces para ports necessários ao caso de uso;
+- [ ] evitar acoplamento com banco e controllers.
 
 ### 3. Caso de uso de criação
 
-- implementar `CreatePayment`;
-- gerar `id` único;
-- validar `amount`, `currency`, `status`, `description`;
-- criar a entidade com timestamps corretos;
-- persistir apenas através do contrato do repositório.
+- [ ] implementar `CreatePayment`;
+- [ ] gerar `id` único;
+- [ ] validar `amount`, `currency`, `status`, `description`;
+- [ ] criar a entidade com timestamps corretos;
+- [ ] persistir apenas através do contrato do repositório.
 
 ### 4. Infraestrutura
 
-- criar migration MySQL para pagamentos;
-- implementar repository concreto;
-- configurar conexão e mapeamento do modelo;
-- manter a infra como adaptador, sem regras de negócio.
+- [ ] criar migration MySQL para pagamentos;
+- [ ] implementar repository concreto;
+- [ ] configurar conexão e mapeamento do modelo;
+- [ ] manter a infra como adaptador, sem regras de negócio.
 
 ### 5. Interface HTTP
 
-- criar `POST /payments`;
-- definir request e response;
-- criar controller delegando para o caso de uso;
-- manter o controller fino e sem regra de negócio.
+- [ ] criar `POST /payments`;
+- [ ] definir request e response;
+- [ ] criar controller delegando para o caso de uso;
+- [ ] manter o controller fino e sem regra de negócio.
 
 ### 6. Testes
 
-- testes unitários do domínio;
-- testes do caso de uso;
-- testes de integração do repository;
-- testes do endpoint HTTP.
+- [x] testes unitários do domínio;
+- [ ] testes do caso de uso;
+- [ ] testes de integração do repository;
+- [ ] testes do endpoint HTTP.
 
 ### 7. Documentação
 
-- atualizar roadmap;
-- registrar ADR quando houver decisão arquitetural relevante;
-- manter a documentação alinhada com a implementação real.
+- [ ] atualizar roadmap;
+- [ ] registrar ADR quando houver decisão arquitetural relevante;
+- [ ] manter a documentação alinhada com a implementação real.
 
 ---
 
