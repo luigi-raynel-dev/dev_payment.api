@@ -24,6 +24,14 @@
 ⬜ Payment Domain
 ⬜ Use Cases
 ⬜ Casos de uso do pagamento
+⬜ Definição do domínio de Payment
+⬜ Estados e transições do pagamento
+⬜ Primeiro caso de uso de criação
+⬜ Contratos de repositório e DTOs
+⬜ Infraestrutura inicial de persistência
+⬜ Endpoint `POST /payments`
+⬜ Testes do domínio e HTTP
+⬜ Atualização da documentação da sprint
 
 ## Sprint 4
 

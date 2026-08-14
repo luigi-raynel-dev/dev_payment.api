@@ -4,7 +4,7 @@ Microsserviço de processamento de pagamentos desenvolvido com **HyperF**, segui
 
 O objetivo deste projeto é servir como um portfolio técnico de um microsserviço de produção, com foco em qualidade de código, organização de camadas, infraestrutura reproduzível e evolução gradual.
 
-> Status atual: Sprint 2 em andamento; bootstrap HyperF implementado e validação do health check em progresso.
+> Status atual: Sprint 3 em andamento; foco no domínio de Payment, regras de negócio e primeiro fluxo de criação de pagamento.
 
 ---
 
@@ -37,43 +37,49 @@ Construir uma base sólida para um microsserviço de pagamentos, com:
 
 # Sprint atual
 
-## Sprint 2 — Bootstrap HyperF
+## Sprint 3 — Payment Domain
 
-A Sprint 2 tem como foco inicializar a aplicação HyperF e garantir que o microsserviço execute corretamente em Docker, pronto para receber regras de negócio.
+A Sprint 3 tem como foco principal definir e implementar o domínio de pagamentos, iniciando pela entidade `Payment` e pelo primeiro fluxo de criação de pagamento.
+
+### Objetivo
+
+Construir a base do domínio financeiro do microsserviço respeitando a arquitetura definida na Sprint 2:
+
+```text
+HTTP
+  ↓
+Interface
+  ↓
+Application / Use Case
+  ↓
+Domain
+  ↓
+Repository Interface
+  ↓
+Infrastructure
+  ↓
+MySQL
+```
 
 ### Definition of Done
 
-Ao final da sprint, o projeto deve permitir:
+Ao final desta sprint, o projeto deve permitir:
 
-```bash
-make setup
-```
+- modelar a entidade `Payment` com regras de domínio;
+- definir estados e transições válidas;
+- criar o caso de uso `CreatePayment`;
+- implementar o contrato do repository e persistência em MySQL;
+- expor `POST /payments` sem lógica de negócio no controller;
+- cobrir a funcionalidade com testes de domínio, aplicação e HTTP.
 
-E expor:
+### Entregas esperadas
 
-```http
-GET /health
-```
-
-Com resposta esperada:
-
-```json
-{
-  "status": "UP",
-  "service": "dev-payment-api",
-  "version": "0.2.0",
-  "environment": "dev",
-  "timestamp": "2026-08-12T00:00:00Z"
-}
-```
-
-Isso confirma que:
-
-- HyperF está funcionando;
-- Swoole está funcionando;
-- roteamento está funcionando;
-- Docker está funcionando;
-- a aplicação está pronta para evoluir.
+- `Payment` entity e invariantes do domínio;
+- `PaymentRepositoryInterface` e contratos de aplicação;
+- caso de uso `CreatePayment`;
+- migration/tabela de pagamentos;
+- endpoint HTTP para criação;
+- testes e documentação atualizados.
 
 ---
 
@@ -245,13 +251,15 @@ Toda a documentação do projeto está em `docs/`.
 # Roadmap
 
 - [x] Sprint 1: infraestrutura e ambiente base concluída
-- [ ] Sprint 2: HyperF + bootstrap da aplicação + health check
+- [x] Sprint 2: HyperF + bootstrap da aplicação + health check
 - [ ] Sprint 3: domínio de pagamentos e casos de uso
 - [ ] Sprint 4: persistência e repositories
 - [ ] Sprint 5: mensageria e workers
 - [ ] Sprint 6: MongoDB e auditoria
 - [ ] Sprint 7: observabilidade e monitoramento
 - [ ] Sprint 8: deploy e infraestrutura AWS
+
+> A Sprint 3 é a primeira etapa funcional do domínio financeiro do projeto e deve servir como base para as próximas fases de persistência e integração.
 
 ---
 
