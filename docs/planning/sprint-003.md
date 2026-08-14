@@ -35,10 +35,10 @@ Ao final da Sprint, o projeto deve ser capaz de:
 
 ### 2. Contratos e portas
 
-- [ ] criar `PaymentRepositoryInterface`;
-- [ ] definir DTOs de entrada e saída;
+- [x] criar `PaymentRepositoryInterface`;
+- [x] definir DTOs de entrada e saída;
 - [ ] estabelecer interfaces para ports necessários ao caso de uso;
-- [ ] evitar acoplamento com banco e controllers.
+- [x] evitar acoplamento com banco e controllers.
 
 ### 3. Caso de uso de criação
 
