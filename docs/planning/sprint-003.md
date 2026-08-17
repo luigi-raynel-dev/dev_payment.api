@@ -50,17 +50,17 @@ Ao final da Sprint, o projeto deve ser capaz de:
 
 ### 4. Infraestrutura
 
-- [ ] criar migration MySQL para pagamentos;
-- [ ] implementar repository concreto;
-- [ ] configurar conexão e mapeamento do modelo;
-- [ ] manter a infra como adaptador, sem regras de negócio.
+- [x] criar migration MySQL para pagamentos;
+- [x] implementar repository concreto;
+- [x] configurar conexão e mapeamento do modelo;
+- [x] manter a infra como adaptador, sem regras de negócio.
 
 ### 5. Interface HTTP
 
-- [ ] criar `POST /payments`;
-- [ ] definir request e response;
-- [ ] criar controller delegando para o caso de uso;
-- [ ] manter o controller fino e sem regra de negócio.
+- [x] criar `POST /payments`;
+- [x] definir request e response;
+- [x] criar controller delegando para o caso de uso;
+- [x] manter o controller fino e sem regra de negócio.
 
 ### 6. Testes
 
@@ -72,7 +72,7 @@ Ao final da Sprint, o projeto deve ser capaz de:
 ### 7. Documentação
 
 - [ ] atualizar roadmap;
-- [ ] registrar ADR quando houver decisão arquitetural relevante;
+- [x] registrar ADR quando houver decisão arquitetural relevante;
 - [ ] manter a documentação alinhada com a implementação real.
 
 ---
