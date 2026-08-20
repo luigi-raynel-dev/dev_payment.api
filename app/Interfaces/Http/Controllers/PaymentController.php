@@ -55,20 +55,12 @@ final class PaymentController extends AbstractController
   public function create(RequestInterface $request): ResponseInterface
   {
     try {
-      // Extract and parse request data
-      $data = $request->getBody()->getContents();
-      $payload = json_decode($data, associative: true);
-
-      if ($payload === null) {
-        return $this->fail('Invalid JSON payload', 400);
-      }
-
       // Create input DTO
       $input = new CreatePaymentInput(
-        amount: (int) ($payload['amount'] ?? 0),
-        currency: (string) ($payload['currency'] ?? ''),
-        description: (string) ($payload['description'] ?? ''),
-        status: (string) ($payload['status'] ?? 'pending'),
+        amount: (int) ($request->input('amount') ?? 0),
+        currency: (string) ($request->input('currency') ?? ''),
+        description: (string) ($request->input('description') ?? ''),
+        status: (string) ($request->input('status') ?? 'pending'),
       );
 
       // Execute use case
