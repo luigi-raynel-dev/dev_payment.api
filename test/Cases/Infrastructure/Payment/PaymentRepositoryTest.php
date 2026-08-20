@@ -61,6 +61,48 @@ final class PaymentRepositoryTest extends TestCase
     $this->assertSame($payment->status(), $foundPayment->status());
   }
 
+  public function testItUpdatesExistingPayment(): void
+  {
+    // Arrange
+    $payment = new Payment(
+      id: 'pay_repository_test_002',
+      amount: 2500,
+      currency: 'BRL',
+      description: 'Pagamento de integração',
+      status: PaymentStatus::PENDING,
+    );
+
+    $this->repository->save($payment);
+
+    $updatedPayment = new Payment(
+      id: 'pay_repository_test_002',
+      amount: 5000,
+      currency: 'BRL',
+      description: 'Pagamento atualizado',
+      status: PaymentStatus::PAID,
+    );
+
+    // Act
+    $this->repository->save($updatedPayment);
+
+    $foundPayment = $this->repository->findById($updatedPayment->id());
+
+    // Assert
+    $this->assertNotNull($foundPayment);
+    $this->assertSame($updatedPayment->id(), $foundPayment->id());
+    $this->assertSame($updatedPayment->amount(), $foundPayment->amount());
+    $this->assertSame($updatedPayment->currency(), $foundPayment->currency());
+    $this->assertSame($updatedPayment->description(), $foundPayment->description());
+    $this->assertSame($updatedPayment->status(), $foundPayment->status());
+
+    $this->assertSame(
+      1,
+      PaymentModel::query()
+        ->where('id', 'pay_repository_test_002')
+        ->count()
+    );
+  }
+
   public function testItReturnsNullWhenPaymentDoesNotExist(): void
   {
     // Act
