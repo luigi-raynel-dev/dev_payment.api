@@ -1,10 +1,10 @@
 # Dev Payment API
 
-Microsserviço de processamento de pagamentos desenvolvido com **HyperF**, seguindo princípios de arquitetura limpa, DDD e boas práticas de engenharia para sistemas financeiros.
+Microsserviço de processamento de pagamentos desenvolvido com **HyperF**, seguindo princípios de **Clean Architecture**, **DDD** e boas práticas de engenharia para sistemas financeiros.
 
-O objetivo deste projeto é servir como um portfolio técnico de um microsserviço de produção, com foco em qualidade de código, organização de camadas, infraestrutura reproduzível e evolução gradual.
+O objetivo deste projeto é servir como um portfólio técnico de um microsserviço de produção, com foco em qualidade de código, separação de responsabilidades, infraestrutura reproduzível, testes automatizados e evolução incremental.
 
-> Status atual: Sprint 3 em andamento; foco no domínio de Payment, regras de negócio e primeiro fluxo de criação de pagamento.
+> **Status atual: Sprint 3 concluída.** O domínio de `Payment`, o caso de uso de criação, persistência em MySQL e o endpoint `POST /payments` estão implementados e cobertos por testes automatizados.
 
 ---
 
@@ -18,32 +18,49 @@ O objetivo deste projeto é servir como um portfolio técnico de um microsservi�
 - Docker
 - Docker Compose
 - Make
-- PHPUnit / Pest *(sprint futura)*
+- PHPUnit / testes automatizados
 - AWS SQS *(sprint futura)*
 
 ---
 
 # Objetivo do projeto
 
-Construir uma base sólida para um microsserviço de pagamentos, com:
+Construir uma base sólida para um microsserviço de pagamentos, evoluindo de forma incremental:
 
 - infraestrutura profissional em Docker;
 - aplicação executando com HyperF;
-- estrutura de arquitetura preparada para Clean Architecture e DDD;
-- endpoints iniciais para observabilidade e saúde da aplicação;
-- evolução controlada para regras de negócio e integrações.
+- Clean Architecture e DDD como fundamentos;
+- domínio financeiro modelado com regras explícitas;
+- persistência desacoplada por contratos;
+- testes automatizados nas principais camadas;
+- evolução futura para mensageria, auditoria, observabilidade e AWS.
 
 ---
 
-# Sprint atual
+# Sprint 3 — Payment Domain
 
-## Sprint 3 — Payment Domain
+A Sprint 3 foi concluída com a implementação do primeiro fluxo funcional do domínio financeiro.
 
-A Sprint 3 tem como foco principal definir e implementar o domínio de pagamentos, iniciando pela entidade `Payment` e pelo primeiro fluxo de criação de pagamento.
+### Entregas concluídas
 
-### Objetivo
+- Entidade `Payment` com regras e invariantes de domínio;
+- `PaymentStatus` com estados e transições válidas;
+- caso de uso `CreatePayment`;
+- DTOs de entrada e saída;
+- `PaymentRepositoryInterface`;
+- geração de identificadores UUID através de contrato próprio;
+- migration MySQL para pagamentos;
+- `PaymentRepository` como adaptador de infraestrutura;
+- modelo de persistência `Payment`;
+- endpoint `POST /payments`;
+- configuração de injeção de dependências;
+- testes de domínio;
+- testes do caso de uso;
+- testes de integração do repository;
+- testes HTTP do fluxo de criação;
+- ADR-003 documentando a abordagem domain-first da sprint.
 
-Construir a base do domínio financeiro do microsserviço respeitando a arquitetura definida na Sprint 2:
+### Fluxo arquitetural validado
 
 ```text
 HTTP
@@ -61,31 +78,24 @@ Infrastructure
 MySQL
 ```
 
-### Definition of Done
+O fluxo foi implementado mantendo as regras de negócio no domínio e evitando acoplamento direto entre aplicação, controller e infraestrutura.
 
-Ao final desta sprint, o projeto deve permitir:
+### Validação
 
-- modelar a entidade `Payment` com regras de domínio;
-- definir estados e transições válidas;
-- criar o caso de uso `CreatePayment`;
-- implementar o contrato do repository e persistência em MySQL;
-- expor `POST /payments` sem lógica de negócio no controller;
-- cobrir a funcionalidade com testes de domínio, aplicação e HTTP.
+A Sprint 3 atende aos critérios definidos no planejamento:
 
-### Entregas esperadas
-
-- `Payment` entity e invariantes do domínio;
-- `PaymentRepositoryInterface` e contratos de aplicação;
-- caso de uso `CreatePayment`;
-- migration/tabela de pagamentos;
-- endpoint HTTP para criação;
-- testes e documentação atualizados.
+- domínio de `Payment` modelado com invariantes;
+- `CreatePayment` implementado como caso de uso;
+- repository exposto por interface e implementado na infraestrutura;
+- criação de pagamento disponível através de `POST /payments`;
+- regras de domínio, aplicação, persistência e HTTP cobertas por testes;
+- documentação e roadmap atualizados de acordo com a implementação real.
 
 ---
 
 # Arquitetura
 
-A arquitetura base do microsserviço seguirá uma estrutura inspirada em Clean Architecture e DDD:
+A aplicação segue uma estrutura inspirada em **Clean Architecture** e **DDD**:
 
 ```text
 app/
@@ -98,7 +108,7 @@ app/
 └── Config/
 ```
 
-Essa organização foi definida antes do início do desenvolvimento de regras de negócio para evitar refatorações futuras.
+A separação das camadas permite que as regras de negócio permaneçam independentes de HTTP, banco de dados e detalhes de infraestrutura.
 
 ---
 
@@ -136,6 +146,8 @@ dev-payment-api
 │   ├── Interfaces/
 │   ├── Shared/
 │   └── Config/
+├── migrations/
+├── test/
 ├── docker-compose.yml
 ├── Makefile
 ├── AGENTS.md
@@ -157,15 +169,11 @@ cd dev-payment-api
 
 ## Opção rápida: setup completo
 
-Se você quiser iniciar o ambiente de forma automatizada, o comando abaixo já sobe os containers, instala as dependências do Composer e inicia a aplicação HyperF:
-
 ```bash
 make setup
 ```
 
 ## Alternativa passo a passo
-
-Se preferir rodar os comandos um por um:
 
 ```bash
 make build
@@ -173,30 +181,44 @@ make up
 make doctor
 ```
 
-### Se quiser rodar com hot reload (reiniciando automaticamente ao salvar arquivos), utilize:
+### Iniciar a aplicação
+
+Com hot reload:
 
 ```bash
 make app-watch
 ```
-### Ou se quiser apenas iniciar a aplicação HyperF sem hot reload:
+
+Ou sem hot reload:
 
 ```bash
 make app-start
 ```
 
-### O que o comando `make doctor` faz?
+## Executar os testes
 
-O `make doctor` é útil para validar rapidamente o estado do ambiente. Ele verifica:
-
-- status dos containers Docker;
-- versão do PHP;
-- versão do Composer;
-- versão da aplicação HyperF.
+```bash
+make app-test
+```
 
 ## Verificando a aplicação
 
+Health check:
+
 ```bash
 curl http://localhost:9501/health
+```
+
+Criação de pagamento:
+
+```bash
+curl -X POST http://localhost:9501/payments \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 100.00,
+    "currency": "BRL",
+    "description": "Pagamento de teste"
+  }'
 ```
 
 ## Acessando o container
@@ -244,22 +266,36 @@ Toda a documentação do projeto está em `docs/`.
 - ADRs → `docs/adr`
 - Planejamento → `docs/planning`
 - Arquitetura base → `docs/adr/ADR-002-base-architecture.md`
+- Payment Domain → `docs/adr/ADR-003-payment-domain-first.md`
 - HyperF → `docs/hyperf`
 
 ---
 
 # Roadmap
 
-- [x] Sprint 1: infraestrutura e ambiente base concluída
+- [x] Sprint 1: infraestrutura e ambiente base
 - [x] Sprint 2: HyperF + bootstrap da aplicação + health check
-- [ ] Sprint 3: domínio de pagamentos e casos de uso
-- [ ] Sprint 4: persistência e repositories
-- [ ] Sprint 5: mensageria e workers
+- [x] Sprint 3: Payment Domain + CreatePayment + persistência + repository + `POST /payments`
+- [ ] Sprint 5: mensageria e workers com SQS
 - [ ] Sprint 6: MongoDB e auditoria
 - [ ] Sprint 7: observabilidade e monitoramento
 - [ ] Sprint 8: deploy e infraestrutura AWS
 
-> A Sprint 3 é a primeira etapa funcional do domínio financeiro do projeto e deve servir como base para as próximas fases de persistência e integração.
+> A Sprint 3 representa a primeira etapa funcional do domínio financeiro e estabelece a base para processamento assíncrono, auditoria, observabilidade e deploy nas próximas etapas.
+
+---
+
+# Próximas etapas
+
+Após a conclusão da Sprint 3, o projeto pode evoluir para processamento assíncrono e integração orientada a eventos, mantendo o domínio desacoplado dos mecanismos de infraestrutura.
+
+As próximas entregas previstas são:
+
+1. SQS e workers;
+2. publicação e consumo de eventos;
+3. MongoDB para auditoria;
+4. observabilidade com Prometheus e Grafana;
+5. deploy na AWS.
 
 ---
 
