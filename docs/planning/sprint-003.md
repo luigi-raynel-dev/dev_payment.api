@@ -66,14 +66,14 @@ Ao final da Sprint, o projeto deve ser capaz de:
 
 - [x] testes unitários do domínio;
 - [x] testes do caso de uso;
-- [ ] testes de integração do repository;
-- [ ] testes do endpoint HTTP.
+- [x] testes de integração do repository;
+- [x] testes do endpoint HTTP.
 
 ### 7. Documentação
 
-- [ ] atualizar roadmap;
+- [x] atualizar roadmap;
 - [x] registrar ADR quando houver decisão arquitetural relevante;
-- [ ] manter a documentação alinhada com a implementação real.
+- [x] manter a documentação alinhada com a implementação real.
 
 ---
 
