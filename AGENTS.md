@@ -33,3 +33,9 @@ Always create tests when creating new business rules.
 Always explain architectural decisions.
 
 Always follow PSR-12.
+
+For Sprint 3, implement the Payment domain first and only then move outward through the application, interface, and infrastructure layers.
+
+The expected flow is: HTTP -> Interface -> Application -> Domain -> Repository Interface -> Infrastructure -> MySQL.
+
+Do not start the sprint with controllers, database access, or model classes without first defining the domain behavior.

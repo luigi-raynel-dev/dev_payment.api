@@ -15,6 +15,9 @@ use Hyperf\HttpServer\Router\Router;
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
 Router::get('/health', 'App\Interfaces\Http\Controllers\HealthController@index');
 
+// Payment routes
+Router::post('/payments', 'App\Interfaces\Http\Controllers\PaymentController@create');
+
 Router::get('/favicon.ico', function () {
     return '';
 });

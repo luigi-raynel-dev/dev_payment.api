@@ -21,15 +21,20 @@
 
 ## Sprint 3
 
-⬜ Payment Domain
-⬜ Use Cases
-⬜ Casos de uso do pagamento
-
-## Sprint 4
-
-⬜ Persistence
-⬜ Repository
-⬜ Integração com banco de dados
+✅ Payment Domain
+✅ Use Cases
+✅ Casos de uso do pagamento
+✅ Definição do domínio de Payment
+✅ Estados e transições do pagamento
+✅ Primeiro caso de uso de criação
+✅ Contratos de repositório e DTOs
+✅ Infraestrutura inicial de persistência
+✅ Endpoint `POST /payments`
+✅ Testes do domínio e HTTP
+✅ Atualização da documentação da sprint
+✅ Persistence
+✅ Repository
+✅ Integração com banco de dados
 
 ## Sprint 5
 

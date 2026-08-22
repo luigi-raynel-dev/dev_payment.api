@@ -1,24 +1,25 @@
 ## Current Sprint
 ---
-- **Status:** Ongoing
-- **Sprint:** Sprint 02
+- **Status:** Done
+- **Sprint:** Sprint 03
 ---
 
 Steps
-
-- [x] Docker
-- [x] Redis
-- [x] MySQL
-- [x] HyperF Bootstrap
-- [x] Health Check
+- [x] Domain
+- [x] Repository
+- [x] Use Cases
+- [x] Infrastructure
+- [x] HTTP Endpoint
+- [x] Tests
 
 Future
-
 - SQS
-- Mongo
-- AWS
+- Worker
+- Events
+- Processamento assíncrono
 
 Known Decisions
 
 - ADR-001
 - ADR-002
+- ADR-003
