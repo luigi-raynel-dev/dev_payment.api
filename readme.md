@@ -43,51 +43,6 @@ Construir uma base sólida para um microsserviço de pagamentos, evoluindo de fo
 
 ---
 
-# Sprint 3 — Payment Domain + Persistence
-
-A Sprint 3 foi concluída com a implementação do primeiro fluxo funcional do domínio financeiro e da persistência dos pagamentos.
-
-### Entregas concluídas
-
-- Entidade `Payment` com regras e invariantes de domínio;
-- `PaymentStatus` com estados e transições válidas;
-- caso de uso `CreatePayment`;
-- DTOs de entrada e saída;
-- `PaymentRepositoryInterface`;
-- geração de identificadores UUID através de contrato próprio;
-- migration MySQL para pagamentos;
-- `PaymentRepository` como adaptador de infraestrutura;
-- modelo de persistência `Payment`;
-- endpoint `POST /payments`;
-- configuração de injeção de dependências;
-- testes de domínio;
-- testes do caso de uso;
-- testes de integração do repository;
-- testes HTTP do fluxo de criação;
-- ADR-003 documentando a abordagem domain-first da sprint.
-
-### Fluxo arquitetural validado
-
-```text
-HTTP
-  ↓
-Interface
-  ↓
-Application / Use Case
-  ↓
-Domain
-  ↓
-Repository Interface
-  ↓
-Infrastructure
-  ↓
-MySQL
-```
-
-O fluxo foi implementado mantendo as regras de negócio no domínio e evitando acoplamento direto entre aplicação, controller e infraestrutura.
-
----
-
 # Sprint 4 — Events and Asynchronous Processing
 
 A Sprint 4 está em andamento e tem como objetivo introduzir o primeiro fluxo de processamento assíncrono do microsserviço.
