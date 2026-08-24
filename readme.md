@@ -4,7 +4,7 @@ Microsserviço de processamento de pagamentos desenvolvido com **HyperF**, segui
 
 O objetivo deste projeto é servir como um portfólio técnico de um microsserviço de produção, com foco em qualidade de código, separação de responsabilidades, infraestrutura reproduzível, testes automatizados e evolução incremental.
 
-> **Status atual: Sprint 3 concluída.** O domínio de `Payment`, o caso de uso de criação, persistência em MySQL e o endpoint `POST /payments` estão implementados e cobertos por testes automatizados.
+> **Status atual: Sprint 4 em andamento.** A Sprint 3 consolidou o domínio de `Payment`, o caso de uso de criação, persistência em MySQL, repository e o endpoint `POST /payments`. A Sprint 4 inicia a evolução para eventos, mensageria e processamento assíncrono com SQS e Workers.
 
 ---
 
@@ -19,7 +19,10 @@ O objetivo deste projeto é servir como um portfólio técnico de um microsservi
 - Docker Compose
 - Make
 - PHPUnit / testes automatizados
-- AWS SQS *(sprint futura)*
+- AWS SQS *(Sprint 4)*
+- MongoDB *(Sprint 5)*
+- Prometheus / Grafana *(Sprint 6)*
+- AWS / EC2 *(Sprint 7)*
 
 ---
 
@@ -33,13 +36,16 @@ Construir uma base sólida para um microsserviço de pagamentos, evoluindo de fo
 - domínio financeiro modelado com regras explícitas;
 - persistência desacoplada por contratos;
 - testes automatizados nas principais camadas;
-- evolução futura para mensageria, auditoria, observabilidade e AWS.
+- processamento assíncrono orientado a eventos;
+- auditoria e rastreabilidade;
+- observabilidade;
+- infraestrutura e deploy em AWS.
 
 ---
 
-# Sprint 4 — 
+# Sprint 3 — Payment Domain + Persistence
 
-A Sprint 4 foi concluída com a implementação do primeiro fluxo funcional do domínio financeiro.
+A Sprint 3 foi concluída com a implementação do primeiro fluxo funcional do domínio financeiro e da persistência dos pagamentos.
 
 ### Entregas concluídas
 
@@ -80,16 +86,87 @@ MySQL
 
 O fluxo foi implementado mantendo as regras de negócio no domínio e evitando acoplamento direto entre aplicação, controller e infraestrutura.
 
-### Validação
+---
 
-A Sprint 3 atende aos critérios definidos no planejamento:
+# Sprint 4 — Events and Asynchronous Processing
 
-- domínio de `Payment` modelado com invariantes;
-- `CreatePayment` implementado como caso de uso;
-- repository exposto por interface e implementado na infraestrutura;
-- criação de pagamento disponível através de `POST /payments`;
-- regras de domínio, aplicação, persistência e HTTP cobertas por testes;
-- documentação e roadmap atualizados de acordo com a implementação real.
+A Sprint 4 está em andamento e tem como objetivo introduzir o primeiro fluxo de processamento assíncrono do microsserviço.
+
+A evolução parte do fluxo síncrono consolidado na Sprint 3:
+
+```text
+HTTP
+  ↓
+CreatePayment
+  ↓
+Payment Repository
+  ↓
+MySQL
+```
+
+E prepara a arquitetura para:
+
+```text
+HTTP
+  ↓
+CreatePayment
+  ↓
+Payment Repository
+  ↓
+MySQL
+  ↓
+Domain Event
+  ↓
+Event Publisher
+  ↓
+SQS
+  ↓
+Worker
+  ↓
+Event Handler
+  ↓
+Asynchronous Processing
+```
+
+### Escopo da Sprint
+
+- [ ] Domain Events;
+- [ ] evento `PaymentCreated`;
+- [ ] contrato de publicação de eventos;
+- [ ] integração com AWS SQS;
+- [ ] Worker para consumo das mensagens;
+- [ ] Event Handlers;
+- [ ] processamento assíncrono;
+- [ ] estratégia de idempotência;
+- [ ] retry de mensagens com falha;
+- [ ] testes do fluxo de publicação e consumo;
+- [ ] documentação das decisões arquiteturais.
+
+### Diretrizes arquiteturais
+
+A Sprint 4 mantém o domínio e a aplicação desacoplados do mecanismo de mensageria.
+
+O domínio não deve conhecer SQS, AWS SDK, filas, polling ou detalhes de infraestrutura. A comunicação deve ocorrer através de contratos, permitindo que a infraestrutura implemente a publicação e o consumo dos eventos.
+
+```text
+Application
+    ↓
+Event Publisher Interface
+    ↓
+Infrastructure Adapter
+    ↓
+AWS SQS
+```
+
+O Worker também deve permanecer separado do transporte, recebendo mensagens e encaminhando eventos para handlers responsáveis pelo processamento.
+
+### Confiabilidade
+
+Como o SQS utiliza entrega **at-least-once**, a Sprint 4 considera idempotência como requisito do processamento assíncrono. O identificador único do evento deverá permitir detectar e evitar processamento duplicado.
+
+A mensagem deverá ser removida da fila somente após o processamento bem-sucedido. Em caso de falha, deverá permanecer disponível para retry conforme a configuração da fila e do Worker.
+
+O **Outbox Pattern** não faz parte da implementação inicial desta Sprint. Ele será considerado como uma evolução futura para tratar a consistência entre a persistência transacional no MySQL e a publicação de eventos.
 
 ---
 
@@ -109,6 +186,47 @@ app/
 ```
 
 A separação das camadas permite que as regras de negócio permaneçam independentes de HTTP, banco de dados e detalhes de infraestrutura.
+
+Com a Sprint 4, a arquitetura passa a contemplar também eventos e processamento assíncrono:
+
+```text
+                         ┌─────────────────┐
+                         │   HTTP Request  │
+                         └────────┬────────┘
+                                  │
+                                  ▼
+                         ┌─────────────────┐
+                         │    Controller   │
+                         └────────┬────────┘
+                                  │
+                                  ▼
+                         ┌─────────────────┐
+                         │   CreatePayment │
+                         └────────┬────────┘
+                                  │
+                    ┌─────────────┴─────────────┐
+                    │                           │
+                    ▼                           ▼
+             ┌─────────────┐             ┌──────────────┐
+             │ Repository  │             │ Domain Event │
+             └──────┬──────┘             └──────┬───────┘
+                    │                           │
+                    ▼                           ▼
+                 MySQL                  Event Publisher
+                                                │
+                                                ▼
+                                         ┌─────────────┐
+                                         │     SQS     │
+                                         └──────┬──────┘
+                                                │
+                                                ▼
+                                         ┌─────────────┐
+                                         │   Worker    │
+                                         └──────┬──────┘
+                                                │
+                                                ▼
+                                         Event Handler
+```
 
 ---
 
@@ -276,26 +394,25 @@ Toda a documentação do projeto está em `docs/`.
 - [x] Sprint 1: infraestrutura e ambiente base
 - [x] Sprint 2: HyperF + bootstrap da aplicação + health check
 - [x] Sprint 3: Payment Domain + CreatePayment + persistência + repository + `POST /payments`
-- [ ] Sprint 4: mensageria e workers com SQS
-- [ ] Sprint 5: MongoDB e auditoria
-- [ ] Sprint 6: observabilidade e monitoramento
-- [ ] Sprint 7: deploy e infraestrutura AWS
+- [ ] **Sprint 4: Events + SQS + Worker + processamento assíncrono** ← atual
+- [ ] Sprint 5: MongoDB + auditoria + event tracking
+- [ ] Sprint 6: observabilidade + Prometheus + Grafana
+- [ ] Sprint 7: deploy + infraestrutura AWS
 
-> A Sprint 3 representa a primeira etapa funcional do domínio financeiro e estabelece a base para processamento assíncrono, auditoria, observabilidade e deploy nas próximas etapas.
+> A Sprint 3 estabeleceu a primeira etapa funcional do domínio financeiro e consolidou a persistência. A Sprint 4 evolui essa base para processamento assíncrono orientado a eventos, preparando o projeto para auditoria, observabilidade e deploy nas próximas etapas.
 
 ---
 
 # Próximas etapas
 
-Após a conclusão da Sprint 3, o projeto pode evoluir para processamento assíncrono e integração orientada a eventos, mantendo o domínio desacoplado dos mecanismos de infraestrutura.
+Após a conclusão da Sprint 4, o projeto deverá possuir uma base de mensageria capaz de publicar e consumir eventos de forma desacoplada.
 
 As próximas entregas previstas são:
 
-1. SQS e workers;
-2. publicação e consumo de eventos;
-3. MongoDB para auditoria;
-4. observabilidade com Prometheus e Grafana;
-5. deploy na AWS.
+1. conclusão do fluxo de Events + SQS + Worker;
+2. MongoDB para auditoria e rastreamento de eventos;
+3. observabilidade com Prometheus e Grafana;
+4. deploy e infraestrutura na AWS.
 
 ---
 
