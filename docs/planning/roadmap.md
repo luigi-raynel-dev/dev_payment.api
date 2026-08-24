@@ -38,9 +38,12 @@
 
 ## Sprint 4
 
+⬜ Domain Events
+⬜ Event Publisher
 ⬜ SQS
 ⬜ Worker
-⬜ Events
+⬜ Event Handlers
+⬜ Idempotência
 ⬜ Processamento assíncrono
 
 ## Sprint 5
