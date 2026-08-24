@@ -37,9 +37,9 @@ Construir uma base sólida para um microsserviço de pagamentos, evoluindo de fo
 
 ---
 
-# Sprint 3 — Payment Domain
+# Sprint 4 — 
 
-A Sprint 3 foi concluída com a implementação do primeiro fluxo funcional do domínio financeiro.
+A Sprint 4 foi concluída com a implementação do primeiro fluxo funcional do domínio financeiro.
 
 ### Entregas concluídas
 
@@ -276,10 +276,10 @@ Toda a documentação do projeto está em `docs/`.
 - [x] Sprint 1: infraestrutura e ambiente base
 - [x] Sprint 2: HyperF + bootstrap da aplicação + health check
 - [x] Sprint 3: Payment Domain + CreatePayment + persistência + repository + `POST /payments`
-- [ ] Sprint 5: mensageria e workers com SQS
-- [ ] Sprint 6: MongoDB e auditoria
-- [ ] Sprint 7: observabilidade e monitoramento
-- [ ] Sprint 8: deploy e infraestrutura AWS
+- [ ] Sprint 4: mensageria e workers com SQS
+- [ ] Sprint 5: MongoDB e auditoria
+- [ ] Sprint 6: observabilidade e monitoramento
+- [ ] Sprint 7: deploy e infraestrutura AWS
 
 > A Sprint 3 representa a primeira etapa funcional do domínio financeiro e estabelece a base para processamento assíncrono, auditoria, observabilidade e deploy nas próximas etapas.
 

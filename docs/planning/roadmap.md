@@ -36,26 +36,26 @@
 ✅ Repository
 ✅ Integração com banco de dados
 
-## Sprint 5
+## Sprint 4
 
 ⬜ SQS
 ⬜ Worker
 ⬜ Events
 ⬜ Processamento assíncrono
 
-## Sprint 6
+## Sprint 5
 
 ⬜ MongoDB
 ⬜ Audit Log
 ⬜ Rastreamento de eventos
 
-## Sprint 7
+## Sprint 6
 
 ⬜ Observabilidade
 ⬜ Prometheus
 ⬜ Grafana
 
-## Sprint 8
+## Sprint 7
 
 ⬜ AWS
 ⬜ EC2
